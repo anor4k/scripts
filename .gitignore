@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/python,windows,linux,powershell
-# Edit at https://www.toptal.com/developers/gitignore?templates=python,windows,linux,powershell
+# Created by https://www.toptal.com/developers/gitignore/api/python,windows,linux,powershell,vscode
+# Edit at https://www.toptal.com/developers/gitignore?templates=python,windows,linux,powershell,vscode
 
 ### Linux ###
 *~
@@ -41,8 +41,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
 parts/
 sdist/
 var/
@@ -120,6 +118,9 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
+# poetry
+#poetry.lock
+
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
@@ -131,8 +132,9 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
-.venv
+# .env
+.env/
+.venv/
 env/
 venv/
 ENV/
@@ -161,8 +163,21 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+# operating system-related files
+*.DS_Store #file properties cache/storage on macOS
+Thumbs.db #thumbnail cache on Windows
+
 # profiling data
 .prof
+
+
+### vscode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -190,5 +205,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/python,windows,linux,powershell
-
+# End of https://www.toptal.com/developers/gitignore/api/python,windows,linux,powershell,vscode
