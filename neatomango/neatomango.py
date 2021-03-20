@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
 
-# identify volumes
-# unzip files to temp folder
-# parse chapters
-# zip chapters
-# mv to destination folder
-
 import argparse
 import logging
 from tqdm import tqdm
@@ -33,7 +27,7 @@ class Mango:
             self.out = Path(out_path)
             self.out.mkdir(parents=True, exist_ok=True)
             self.logger.debug(f"Output directory: {self.out.absolute()}")
-        except OSError as e:
+        except OSError:
             self.logger.exception(f"Could not access {temp_path}. Make sure you have the correct permissions.")
 
     def extract(self, path):
@@ -59,7 +53,7 @@ class Mango:
             files = filter(lambda filepath: filepath.is_file(), Path(path).glob('*'))
             self.files = [f for f in files if f.suffix in extensions]
             self.logger.debug(f"Files read: {self.files}")
-        except FileNotFoundError as e:
+        except FileNotFoundError:
             self.logger.exception(f"File/directory not found: {path}")
         return self.files
 
