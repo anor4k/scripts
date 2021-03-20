@@ -54,7 +54,7 @@ class Mango():
 
     def read_files(self, path):
         self.logger.debug("Reading files...")
-        extensions = ('.zip', '.rar', '.cbz', '.cbr')
+        extensions = ('.zip', '.cbz')
         try:
             files = filter(lambda filepath: filepath.is_file(), Path(path).glob('*'))
             self.files = [f for f in files if f.suffix in extensions]
