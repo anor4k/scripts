@@ -24,7 +24,7 @@ class Mango():
         self.chapters = {}
 
         if temp_path is None:
-            temp_path = Path(tempfile.gettempdir()) / 'neatomango'
+            self.tmp = Path(tempfile.gettempdir()) / 'neatomango'
         else:
             self.tmp = Path(temp_path)
         try:
