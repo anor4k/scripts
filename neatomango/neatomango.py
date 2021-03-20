@@ -17,7 +17,7 @@ from zipfile import ZipFile
 import re
 
 
-class Mango():
+class Mango:
     def __init__(self, out_path, temp_path=None):
         self.logger = logging.getLogger(__name__)
         self.logger.addHandler(logging.NullHandler())
