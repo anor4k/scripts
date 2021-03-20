@@ -8,7 +8,9 @@
 
 import argparse
 import logging
+from tqdm import tqdm
 import shutil
+import tempfile
 import sys
 from pathlib import Path
 from zipfile import ZipFile
@@ -16,12 +18,16 @@ import re
 
 
 class Mango():
-    def __init__(self, out_path, temp_path='/tmp/neatomango'):
+    def __init__(self, out_path, temp_path=None):
         self.logger = logging.getLogger(__name__)
         self.logger.addHandler(logging.NullHandler())
         self.chapters = {}
-        try:
+
+        if temp_path is None:
+            temp_path = Path(tempfile.gettempdir()) / 'neatomango'
+        else:
             self.tmp = Path(temp_path)
+        try:
             self.tmp.mkdir(parents=True, exist_ok=True)
             self.logger.debug(f"Temporary directory: {self.tmp.absolute()}")
             self.out = Path(out_path)
@@ -82,14 +88,14 @@ class Mango():
         return self.chapters
 
     def process_volumes(self):
-        self.logger.debug("Extracting volumes...")
-        for volume in self.volumes:
+        self.logger.info("Extracting volumes...")
+        for volume in tqdm(self.volumes):
             vol_path = self.extract(self.volumes[volume])
             self.parse_chapters(vol_path)
 
     def process_chapters(self):
-        self.logger.debug("Compressing chapters...")
-        for chapter in self.chapters:
+        self.logger.info("Compressing chapters...")
+        for chapter in tqdm(self.chapters):
             out_path = self.out / (chapter + '.cbz')
             self.logger.debug(f"Compressing chapter {chapter} to {out_path}")
             self.compress(self.chapters[chapter], out_path)
