@@ -19,7 +19,7 @@ class Mango():
     def __init__(self, out_path, temp_path='/tmp/neatomango'):
         self.logger = logging.getLogger(__name__)
         self.logger.addHandler(logging.NullHandler())
-
+        self.chapters = {}
         try:
             self.tmp = Path(temp_path)
             self.tmp.mkdir(parents=True, exist_ok=True)
@@ -75,12 +75,10 @@ class Mango():
     def parse_chapters(self, path):
         self.logger.debug("Parsing chapters...")
         parse_string = r'\b(?:chapter|ch|c)([0-9]{0,4}[x.-]?[0-9])\b'
-        chapters = {}
         for f in path.glob('*'):
             c = re.findall(parse_string, f.name)[0]
             if c is not None:
-                chapters.setdefault(c, []).append(f)
-        self.chapters = chapters
+                self.chapters.setdefault(c, []).append(f)
         return self.chapters
 
     def process_volumes(self):
@@ -94,7 +92,7 @@ class Mango():
         for chapter in self.chapters:
             out_path = self.out / (chapter + '.cbz')
             self.logger.debug(f"Compressing chapter {chapter} to {out_path}")
-            chapter_path = self.compress(self.chapters[chapter], out_path)
+            self.compress(self.chapters[chapter], out_path)
 
     def neato(self, folder):
         # yes i'm giving this a dumb name
